@@ -12,7 +12,7 @@ clobbered mid-save.
     sync.py --dry-run       # print the plan, write nothing, copy nothing
     sync.py --phone-dir P --mac-dir M   # merge two local folders (tests), no devicectl
 """
-import json, os, shutil, subprocess, sys, time, uuid
+import fcntl, json, os, shutil, subprocess, sys, time, uuid
 from datetime import datetime, timezone
 
 DEVICE = "9BD90016-EE94-564C-98C4-A925F6B1F94E"
@@ -71,11 +71,27 @@ def read_json(path, default):
     except Exception: return default
 
 
+def read_library(path, name):
+    """A library that cannot be read is NOT an empty library. None means: refuse to act on this side."""
+    if not os.path.exists(path): log(f"{name} library.json missing at {path}"); return None
+    try:
+        data = json.load(open(path))
+    except Exception as e:
+        log(f"{name} library.json unreadable: {e}"); return None
+    if not isinstance(data, list): log(f"{name} library.json is not a list"); return None
+    return data
+
+
+MAX_REMOVALS_FRACTION = 0.10   # a real removal is one or two mixes; anything bigger is a misread and is refused
+
+
 class Side:
     """One device's view: records by id, trash by id, and how to read/write its files."""
     def __init__(self, name, local_dir, remote):
         self.name, self.dir, self.remote = name, local_dir, remote
-        self.records = {m["id"]: m for m in read_json(os.path.join(local_dir, "library.json"), [])}
+        lib = read_library(os.path.join(local_dir, "library.json"), name)
+        self.readable = lib is not None
+        self.records = {m["id"]: m for m in (lib or [])}
         self.trash = {t["mix"]["id"]: t for t in read_json(os.path.join(local_dir, "trash.json"), [])}
         self.inbox = {"records": [], "removed": []}
     def has_audio(self, m):
@@ -156,6 +172,10 @@ def main():
     dry = "--dry-run" in sys.argv
     args = dict(zip(sys.argv[1:], sys.argv[2:]))
     local_test = "--phone-dir" in args
+    os.makedirs(WORK, exist_ok=True)
+    lock = open(os.path.join(WORK, "lock"), "w")
+    try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError: return                                  # another run is in progress
     if local_test:
         phone = Side("phone", args["--phone-dir"], remote=False); mac = Side("mac", args["--mac-dir"], remote=False)
         state_path = os.path.join(args["--mac-dir"], "sync-state.json")
@@ -168,9 +188,16 @@ def main():
                   "--domain-type", "appDataContainer", "--domain-identifier", BUNDLE)   # absent until something was removed
         phone = Side("phone", PHONE_STAGE, remote=True); mac = Side("mac", MAC_DIR, remote=False)
         state_path = STATE
+    if not phone.readable or not mac.readable:
+        log("refusing to sync: a side could not be read" + ("" if mac.readable else " (Mac container unreadable: this process needs Full Disk Access)")); return
+    if (phone.records and not mac.records) or (mac.records and not phone.records):
+        log(f"refusing to sync: one side is empty (phone {len(phone.records)}, mac {len(mac.records)}); restore it by hand first"); return
     if not phone.records and not mac.records: return
     state = read_json(state_path, {})
     copies, summary = merge(phone, mac, state, dry)
+    total = max(len(phone.records), len(mac.records))
+    if summary["removed"] > max(3, int(total * MAX_REMOVALS_FRACTION)):
+        log(f"refusing to sync: {summary['removed']} removals against {total} mixes looks like a misread, nothing written"); return
     if not any(summary.values()):
         state.update({"ids": sorted((set(phone.records) | set(mac.records)) - set(state.get("removed", {}))), "last_run": now_ref()})
         if not dry: json.dump(state, open(state_path, "w"))
