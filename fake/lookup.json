@@ -1,0 +1,29 @@
+{
+ "title": "Live at Lightning in a Bottle 2011",
+ "artist": "Pumpkin",
+ "duration_seconds": 4920,
+ "candidates": [
+  {
+   "url": "https://tracking.swap.fm/track/XvDEoI11TR00olTUO8US/prfx.byspotify.com/e/play.podtrac.com/npr-510289/npr.simplecastaudio.com/43b5acee-463e-4612-95ad-d2596d9dd337/episodes/015802bf-f8a4-4fdc-8b55-f82788d39640/audio/128/default.mp3?awCollectionId=43b5acee-463e-4612-95ad-d2596d9dd337&awEpisodeId=015802bf-f8a4-4fdc-8b55-f82788d39640&feed=hvWWWzRv&t=podcast&e=nx-s1-5974101&p=510289&d=1942&size=31077025",
+   "kind": "audio",
+   "source": "fake: NPR podcast enclosure standing in for a DJ site download",
+   "confidence": 0.9,
+   "same_recording": true,
+   "note": "Canned answer from CUE_FAKE=1. A real answer points at the DJ's own download."
+  },
+  {
+   "url": "https://soundcloud.com/pumpkin/lib-2011",
+   "kind": "page",
+   "source": "soundcloud.com",
+   "confidence": 1.0,
+   "same_recording": true,
+   "note": "Stream only."
+  }
+ ],
+ "tracklist": [
+  "Adele \u2013 Rolling in the Deep (Jamie xx Shuffle Mix)",
+  "Phoenix \u2013 1901 (D.L.I.D Remix)",
+  "Sia \u2013 Breathe Me (Mylo Remix)"
+ ],
+ "summary": "Canned lookup result (fake mode)."
+}

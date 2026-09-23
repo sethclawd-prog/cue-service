@@ -1,0 +1,29 @@
+{
+ "picks": [
+  {
+   "title": "Fake pick: Planet Money episode",
+   "dj": "NPR",
+   "page_url": "https://www.npr.org/podcasts/510289/planet-money",
+   "download_url": "https://tracking.swap.fm/track/XvDEoI11TR00olTUO8US/prfx.byspotify.com/e/play.podtrac.com/npr-510289/npr.simplecastaudio.com/43b5acee-463e-4612-95ad-d2596d9dd337/episodes/015802bf-f8a4-4fdc-8b55-f82788d39640/audio/128/default.mp3?awCollectionId=43b5acee-463e-4612-95ad-d2596d9dd337&awEpisodeId=015802bf-f8a4-4fdc-8b55-f82788d39640&feed=hvWWWzRv&t=podcast&e=nx-s1-5974101&p=510289&d=1942&size=31077025",
+   "kind": "audio",
+   "source": "podcast feed",
+   "duration_minutes": 32,
+   "year": 2026,
+   "why": "Canned answer from CUE_FAKE=1: exercises the Add button end to end.",
+   "confidence": 0.5
+  },
+  {
+   "title": "Fake pick: stream-only set",
+   "dj": "Pumpkin",
+   "page_url": "https://soundcloud.com/pumpkin/lib-2011",
+   "download_url": null,
+   "kind": "page",
+   "source": "soundcloud.com",
+   "duration_minutes": 82,
+   "year": 2011,
+   "why": "Canned: shows the Open page path.",
+   "confidence": 0.5
+  }
+ ],
+ "summary": "Canned discovery result (fake mode)."
+}
