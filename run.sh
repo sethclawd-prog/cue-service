@@ -4,5 +4,5 @@
 cd "$(dirname "$0")"
 [ -z "$ANTHROPIC_API_KEY" ] && [ -f ~/.anthropic_key ] && export ANTHROPIC_API_KEY=$(cat ~/.anthropic_key)
 # Email handed to free-download gates by the Mac-side fetch (gates.py), unless the app sends one.
-export CUE_GATE_EMAIL="${CUE_GATE_EMAIL:-sipratt@gmail.com}"
+export CUE_GATE_EMAIL="${CUE_GATE_EMAIL:-}"
 exec .venv/bin/python service.py "${1:-8731}"

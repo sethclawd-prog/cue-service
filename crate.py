@@ -209,7 +209,7 @@ def resolve_download(row):
             if g.get("kind") == "audio": return g["download_url"], f"free link ({title})"
             if g.get("get_url") and "hypeddit.com/track/" in g["get_url"]:
                 import gates
-                r = gates.fetch(g["get_url"], os.environ.get("CUE_GATE_EMAIL", "sipratt@gmail.com"))
+                r = gates.fetch(g["get_url"], os.environ.get("CUE_GATE_EMAIL", ""))
                 if r.get("file"): return "file://" + r["file"], "Hypeddit gate"
                 raise RuntimeError("status:gate_failed " + str(r.get("error") or r.get("needs_login")))
             raise RuntimeError(f"status:gate_needs_login {g.get('get_label') or 'gate'} at {g.get('get_url') or link}")
