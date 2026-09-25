@@ -28,7 +28,7 @@ cp fake/taste.example.json ~/Mixtapes/crate/taste.json   # then edit: your DJs, 
 ./run.sh                                                 # 127.0.0.1:8731
 ```
 
-Expose it to the phone with Tailscale (`tailscale serve --https=8445 --bg http://127.0.0.1:8731`) and paste `https://<your-mac>.<tailnet>.ts.net:8445` into the app. Keys: `~/.typesafe_key` for Jev (discovery), `ANTHROPIC_API_KEY` or `~/.anthropic_key` only for the `agent` engine and `/lookup`; the crate works without either.
+Expose it to the phone with Tailscale (`tailscale serve --https=8445 --bg http://127.0.0.1:8731`) and paste `https://<your-mac>.<tailnet>.ts.net:8445` into the app. Free-download gates get the email in `CUE_GATE_EMAIL` or `~/.cue_gate_email` (yours; never a shared one). Keys: `~/.typesafe_key` for Jev (discovery), `ANTHROPIC_API_KEY` or `~/.anthropic_key` only for the `agent` engine and `/lookup`; the crate works without either.
 
 ## Collecting
 
