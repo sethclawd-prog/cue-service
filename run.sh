@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Start the Cue service on 127.0.0.1:8731 (exposed to the tailnet as https://seth-cosmo-studio.tail2f894f.ts.net:8445).
+# Start the Cue service on 127.0.0.1:8731 (expose it to your phone with `tailscale serve --https=8445 --bg http://127.0.0.1:8731`).
 # Needs ANTHROPIC_API_KEY in the environment (or ~/.anthropic_key).
 cd "$(dirname "$0")"
 [ -z "$ANTHROPIC_API_KEY" ] && [ -f ~/.anthropic_key ] && export ANTHROPIC_API_KEY=$(cat ~/.anthropic_key)
