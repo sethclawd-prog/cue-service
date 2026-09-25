@@ -1,0 +1,12 @@
+{
+  "djs": ["Animal Collective", "Panda Bear", "Avey Tare"],
+  "genres": ["psychedelic pop", "live set", "experimental"],
+  "years": ["2009", "2012", "2016"],
+  "steers": ["Animal Collective live show", "Panda Bear DJ mix", "Merriweather Post Pavilion era live recording"],
+  "festivals": ["Bonnaroo", "Pitchfork Music Festival", "Primavera Sound"],
+  "min_fit": 1.8,
+  "min_minutes": 20,
+  "max_per_dj": 6,
+  "songs_in_library": [],
+  "library_titles": []
+}
